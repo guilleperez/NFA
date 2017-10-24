@@ -55,39 +55,53 @@ print "Con 1 ", transiciones_diccionario_1
 estado_actual = [transiciones[0][2]]
 #print estado_actual
 
-w = 0
-while(w<5):
+while(True):
      valores_estado_actual = []
      llave_nueva = ""
+     nuevos_valores_estados = ""
+     #print "ESTADO ACTUAL ", estado_actual
+     #calcula todo con la llave nueva
      for i in range(len(estado_actual)):
-         valores_actual = transiciones_diccionario_0.get(estado_actual[i])
-         print "valores_actual ",valores_actual
+         valores_estado_actual = transiciones_diccionario_0.get(estado_actual[i])
+         #print "vae ",valores_estado_actual
+
 
          # crear la llave nueva
+         if(len(valores_estado_actual) == 1):
+             if(valores_estado_actual[0] not in llave_nueva):
+                llave_nueva += " " + valores_estado_actual[0]
+         else:
+             for valor_llave in range(len(valores_estado_actual)):
+                 if(valor_llave < len(valores_estado_actual) - 1):
+                    llave_nueva += valores_estado_actual[valor_llave] + " "
+                 else:
+                     llave_nueva += valores_estado_actual[valor_llave]
+         #print llave_nueva, " lln"
 
-         for valor_llave in valores_actual:
-             llave_nueva += valor_llave + " "
-         print llave_nueva, " lln"
-
-         nuevos_valores_estados = ""
 
          # obtener los nuevos valores de llave
-         for j in range(len(valores_actual)):
-             print "j ",valores_actual[j]
-             valores_estado_actual = transiciones_diccionario_0.get(valores_actual[j])
+         for j in range(len(valores_estado_actual)):
+             #print "j ",valores_actual[j]
+             valores_estado_actual = transiciones_diccionario_0.get(valores_estado_actual[j])
 
 
              for k in valores_estado_actual:
-                 nuevos_valores_estados += k + " "
-             print "vea ",valores_estado_actual
+                 if(k not in nuevos_valores_estados):
+                    nuevos_valores_estados += k + " "
+             #print "vea ",valores_estado_actual
 
-         print "nve", nuevos_valores_estados
-         agregar = nuevos_valores_estados.split()
-         transiciones_diccionario_0[llave_nueva] =  agregar
+     #print "nve", nuevos_valores_estados
+     agregar = nuevos_valores_estados.split()
 
-     estado_actual = agregar
-     print "ea", estado_actual
-     w+=1
+     if (transiciones_diccionario_0.get(llave_nueva)):
+         break
+
+     transiciones_diccionario_0[llave_nueva] =  agregar
+
+     #agregara el nuevo valor de llaves a la tabla
+     estado_actual = llave_nueva.split()
+     #print "ea", estado_actual
+
 
 
 print "\nCon 0 ", transiciones_diccionario_0
