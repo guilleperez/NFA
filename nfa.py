@@ -254,6 +254,7 @@ for linea in archivo:
     print transiciones_diccionario, "\n"
 
     lista=[]
+    listaDfa=[]
     #for i in transiciones_diccionario.__sizeof__():
     for i in transiciones_diccionario:
         #print i
@@ -263,7 +264,17 @@ for linea in archivo:
         lista.append(nuevo)
         nuevo2 = "1",i,estado[1]
         lista.append(nuevo2)
-    print lista
+    
+    strin = ""
+    for j in lista:
+        for k in j[2]:
+            strin+=k
+        estadoNuevo = j[0],j[1],strin
+        listaDfa.append(estadoNuevo)
+        strin=""
+
+    print  listaDfa
+
 
 
 
