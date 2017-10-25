@@ -243,13 +243,30 @@ for linea in archivo:
 
 
     # print "Estados ", estados
-    print "Tran", transiciones_diccionario
+    #print "Tran", transiciones_diccionario
+
     #
     # #transiciones_diccionario_0 = calcular_transiciones(transiciones_diccionario_0, transiciones_diccionario_0)
     # #transiciones_diccionario_1 = calcular_transiciones(transiciones_diccionario_0, transiciones_diccionario_1)
     #
     calcular_transiciones()
+
     print transiciones_diccionario, "\n"
+
+    lista=[]
+    #for i in transiciones_diccionario.__sizeof__():
+    for i in transiciones_diccionario:
+        #print i
+        #print transiciones_diccionario.get(i)
+        estado = transiciones_diccionario.get(i)
+        nuevo= "0",i, estado[0]
+        lista.append(nuevo)
+        nuevo2 = "1",i,estado[1]
+        lista.append(nuevo2)
+    print lista
+
+
+
     #
     #
     #
