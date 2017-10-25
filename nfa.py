@@ -183,12 +183,11 @@ for linea in archivo:
                     estado += nfa[i][j]
         transiciones.append(estado)
 
-    #print transiciones
     for i in range(len(transiciones)):
 
         # guarda los estados
-        if (not estados.__contains__(transiciones[i][4])):
-            estados.append(transiciones[i][4])
+        if (not estados.__contains__(transiciones[i][2])):
+            estados.append(transiciones[i][2])
 
         # guarda las trancisiones en 0
         if (transiciones[i][0] == '0'):
@@ -242,7 +241,7 @@ for linea in archivo:
                 transiciones_diccionario[transiciones] = v
 
 
-    # print "Estados ", estados
+    #print "Estados ", estados
     #print "Tran", transiciones_diccionario
 
     #
@@ -264,7 +263,7 @@ for linea in archivo:
         lista.append(nuevo)
         nuevo2 = "1",i,estado[1]
         lista.append(nuevo2)
-    
+
     strin = ""
     for j in lista:
         for k in j[2]:
