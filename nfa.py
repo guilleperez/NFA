@@ -149,7 +149,7 @@ def calcular_transiciones():
                     estados_actual.append(key)
                     # print key
 
-        #print transiciones_diccionario
+        print transiciones_diccionario
         #print estados_actual, "\n-----------"
 
         if (len(estados_actual) <= 0):
@@ -159,8 +159,11 @@ def calcular_transiciones():
 archivo = open("entrada.txt", "r")
 nfa = ""
 lineasArchivo = 0
+
 for linea in archivo:
     lineasArchivo+=1
+    #posibles alfabetos
+    alfabeto=[]
     # cambia a lista
     nfa = linea.split(")")
     #print nfa
@@ -190,8 +193,14 @@ for linea in archivo:
         if (not estados.__contains__(transiciones[i][2])):
             estados.append(transiciones[i][2])
 
-        # guarda las trancisiones en 0
-        if (transiciones[i][0] == '0'):
+        # guarda las trancisiones en 0 con 0 o a
+        if (transiciones[i][0] == '0' or transiciones[i][0] == 'a'):
+            # verifica el alfabeto
+            if(transiciones[i][0] == '0' and transiciones[i][0] not in alfabeto):
+                alfabeto.append('0')
+            elif(transiciones[i][0] == 'a' and transiciones[i][0] not in alfabeto):
+                alfabeto.append('a')
+
             if (not transiciones_diccionario_0.has_key(transiciones[i][2])):
                 estados_llegada = []
                 estados_llegada.append(transiciones[i][4])
@@ -245,7 +254,6 @@ for linea in archivo:
     #print "Estados ", estados
     #print "Tran", transiciones_diccionario
 
-    #
     # #transiciones_diccionario_0 = calcular_transiciones(transiciones_diccionario_0, transiciones_diccionario_0)
     # #transiciones_diccionario_1 = calcular_transiciones(transiciones_diccionario_0, transiciones_diccionario_1)
     #
@@ -253,6 +261,7 @@ for linea in archivo:
 
     print transiciones_diccionario, "\n"
 
+    print alfabeto
     lista=[]
     listaDfa=[]
     #for i in transiciones_diccionario.__sizeof__():
@@ -260,30 +269,40 @@ for linea in archivo:
         #print i
         #print transiciones_diccionario.get(i)
         estado = transiciones_diccionario.get(i)
-        nuevo= "0",i, estado[0]
-        lista.append(nuevo)
-        nuevo2 = "1",i,estado[1]
-        lista.append(nuevo2)
+        if('0' in alfabeto):
+            nuevo= "0",i, estado[0]
+            lista.append(nuevo)
+            nuevo2 = "1",i,estado[1]
+            lista.append(nuevo2)
+        else:
+            nuevo= "a",i, estado[0]
+            lista.append(nuevo)
+            nuevo2 = "b",i,estado[1]
+            lista.append(nuevo2)
 
     strin = ""
     for j in lista:
         for k in j[2]:
             strin+=k
-        estadoNuevo = j[0],j[1],strin
+            estadoNuevo = j[0],j[1],strin
         listaDfa.append(estadoNuevo)
         strin=""
 
-    print  listaDfa
 
-    archivo2 = open("salida.txt", "w")
-    linea = "{"
+    if(lineasArchivo == 1):
+        respuesta = "{"
+    else:
+        respuesta += "{"
     for index in listaDfa:
-      linea += "("+index[0]+","+index[1]+","+index[2]+")"
-     #print linea
-      archivo2.write(linea)
-      linea = ","
-    archivo2.write("}")
-    archivo2.close()
+        respuesta += "("+index[0]+","+index[1]+","+index[2]+")"
+        #print linea
+        respuesta += ","
+    respuesta +="}\n"
+
+archivo2 = open("salida.txt", "w")
+archivo2.write(respuesta)
+#archivo2.write("}")
+archivo2.close()
 
 
 
