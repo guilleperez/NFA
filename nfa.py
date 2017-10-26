@@ -149,8 +149,8 @@ def calcular_transiciones():
                     estados_actual.append(key)
                     # print key
 
-        print transiciones_diccionario
-        #print estados_actual, "\n-----------"
+        # print transiciones_diccionario
+        # print estados_actual, "\n-----------"
 
         if (len(estados_actual) <= 0):
             break
@@ -259,9 +259,8 @@ for linea in archivo:
     #
     calcular_transiciones()
 
-    print transiciones_diccionario, "\n"
+    #print transiciones_diccionario, "\n"
 
-    print alfabeto
     lista=[]
     listaDfa=[]
     #for i in transiciones_diccionario.__sizeof__():
