@@ -158,8 +158,9 @@ def calcular_transiciones():
 
 archivo = open("entrada.txt", "r")
 nfa = ""
+lineasArchivo = 0
 for linea in archivo:
-
+    lineasArchivo+=1
     # cambia a lista
     nfa = linea.split(")")
     #print nfa
@@ -273,6 +274,16 @@ for linea in archivo:
         strin=""
 
     print  listaDfa
+
+    archivo2 = open("salida.txt", "w")
+    linea = "{"
+    for index in listaDfa:
+      linea += "("+index[0]+","+index[1]+","+index[2]+")"
+     #print linea
+      archivo2.write(linea)
+      linea = ","
+    archivo2.write("}")
+    archivo2.close()
 
 
 
